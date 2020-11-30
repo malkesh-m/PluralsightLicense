@@ -11,7 +11,7 @@ namespace PluralsightLicense.Service
 {
     public interface IDevTeamService
     {
-
+        bool RemoveDevelopersFromTeam(DevTeam teamDeveloper);
         bool AssignDeveloperstoTeam(DevTeam teamDeveloper);
         List<TeamDevelopersVM> GetTeamDevelopers();
     }
@@ -39,6 +39,10 @@ namespace PluralsightLicense.Service
         {
             return devTeamRepo.AssignDeveloperstoTeam(teamDeveloper);
         }
-        
+
+        public bool RemoveDevelopersFromTeam(DevTeam teamDeveloper)
+        {
+            return devTeamRepo.RemoveDevelopersFromTeam(teamDeveloper);
+        }
     }
 }

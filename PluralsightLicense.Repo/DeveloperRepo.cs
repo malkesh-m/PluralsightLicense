@@ -16,6 +16,7 @@ namespace PluralsightLicense.Repo
 
             bool Delete(int id);
         bool IsAvailable(int developerId);
+        List<Developer> GetAllUnlicensed();
     }
 
         public class DeveloperRepo : BaseRepo, IDeveloperRepo
@@ -116,6 +117,24 @@ namespace PluralsightLicense.Repo
                     }
                 }
             }
+
+        public List<Developer> GetAllUnlicensed()
+        {
+
+            using (SqlConnection sqlConnection = GetDbConnection())
+            {
+
+                    SqlCommand sqlCommand = new SqlCommand("SELECT * FROM Developer Where [IsPluralsightLicenseAssigned]=0", sqlConnection);
+                    sqlConnection.Open();
+                    DataTable dataTable = new DataTable();
+                    SqlDataAdapter da = new SqlDataAdapter(sqlCommand);
+                    da.Fill(dataTable);
+                    sqlConnection.Close();
+                    var result = ConvertDataTableToList<Developer>(dataTable);
+                    return result;
+
+            }
         }
+    }
 
 }

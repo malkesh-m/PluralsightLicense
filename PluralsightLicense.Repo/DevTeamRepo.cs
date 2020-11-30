@@ -11,7 +11,8 @@ namespace PluralsightLicense.Repo
         {
             bool AssignDeveloperstoTeam(DevTeam devTeam);
             List<TeamDevelopersVM> GetTeamDevelopers();
-        }
+        bool RemoveDevelopersFromTeam(DevTeam devTeam);
+    }
 
     public class DevTeamRepo : BaseRepo, IDevTeamRepo
     {
@@ -42,6 +43,23 @@ namespace PluralsightLicense.Repo
             }
         }
 
+        public bool RemoveDevelopersFromTeam(DevTeam devTeam)
+        {
+            using (SqlConnection sqlConnection = GetDbConnection())
+            {
+                sqlConnection.Open();
+                foreach (var devId in devTeam.DeveloperIds.Split(","))
+                {
+
+                        SqlCommand sqlCommand = new SqlCommand("Delete FROM DevTeam Where DeveloperId=" + devId + " AND TeamId=" + devTeam.TeamId, sqlConnection);
+                        sqlCommand.ExecuteNonQuery();
+
+
+                }
+                sqlConnection.Close();
+                return true;
+            }
+        }
 
         /// <summary>
         /// Returns all if there is no team id given

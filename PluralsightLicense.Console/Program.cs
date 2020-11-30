@@ -29,8 +29,10 @@ namespace PluralsightLicense.Consoles
                 Console.WriteLine("4.Add Developer");
                 Console.WriteLine("5.Remove Developer");
                 Console.WriteLine("6.List Developers");
-                Console.WriteLine("7.Assign Developer/s to Team");
+                Console.WriteLine("7.Assign Developer's to Team");
                 Console.WriteLine("8.List Team Developers");
+                Console.WriteLine("9.Remove Team Developers");
+                Console.WriteLine("10.List Unlicensed Developers");
                 Console.Write("What option do you want to select? ");
                 string input = Console.ReadLine();
                 if (input.Equals("1"))
@@ -134,7 +136,7 @@ namespace PluralsightLicense.Consoles
                     if (developers.Count > 0)
                     {
                         Console.WriteLine("Developer list");
-                        Console.WriteLine("Id\tName\t\t\tHave License");
+                        Console.WriteLine("Id\tName\t\tHas License");
                         foreach (var developer in developers)
                         {
                             Console.WriteLine(developer.DeveloperId + "\t" + developer.DeveloperName + "\t\t\t" + (developer.IsPluralsightLicenseAssigned ? "Yes" : "No"));
@@ -202,6 +204,65 @@ namespace PluralsightLicense.Consoles
                     {
                         Console.WriteLine("No developer assigned to team.");
                     }
+                    goto tostart;
+                }
+                else if (input.Equals("9"))
+                {
+                addTeam:
+                    Console.WriteLine();
+                    Console.Write("Enter team id: ");
+                    string teamId = Console.ReadLine();
+                    int teamID;
+                    if (!string.IsNullOrEmpty(teamId) && Int32.TryParse(teamId, out teamID) && ts.IsAvailable(teamID))
+                    {
+                        DevTeam teamDeveloperteam = new DevTeam() { TeamId = teamID };
+                    deleteDevelopers:
+                        Console.Write("Enter id's of developers to assign in the team id " + teamID + " (Separated by comma): ");
+                        string developerids = Console.ReadLine();
+                        if (!string.IsNullOrEmpty(developerids))
+                        {
+                            foreach (var item in developerids.Split(","))
+                            {
+                                int id;
+                                if (!(int.TryParse(item, out id) && ds.IsAvailable(id)))
+                                {
+                                    Console.WriteLine("Please enter valid input.");
+                                    goto deleteDevelopers;
+                                }
+                            }
+                            teamDeveloperteam.DeveloperIds = developerids;
+                            dts.RemoveDevelopersFromTeam(teamDeveloperteam);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Please enter correct input.");
+                            goto deleteDevelopers;
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Please enter correct input.");
+                        goto addTeam;
+                    }
+                    goto tostart;
+                }
+                else if (input.Equals("10"))
+                {
+                    var developers = ds.UnlicensedDevelopers();
+                    if (developers.Count > 0)
+                    {
+                        Console.WriteLine("Developer list");
+                        Console.WriteLine("Id\tName\t\tHas License");
+                        foreach (var developer in developers)
+                        {
+                            Console.WriteLine(developer.DeveloperId + "\t" + developer.DeveloperName + "\t\t\t" + (developer.IsPluralsightLicenseAssigned ? "Yes" : "No"));
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Developers not available in system.");
+                    }
+                    goto tostart;
                 }
                 else
                 {

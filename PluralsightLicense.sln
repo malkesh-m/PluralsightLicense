@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PluralsightLicense.Data", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PluralsightLicense.Service", "PluralsightLicense.Service\PluralsightLicense.Service.csproj", "{E87A764E-B8B2-46CC-93C4-9CFEDB5215F4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VendingMachineTest", "PluralsightLicenseTest\VendingMachineTest.csproj", "{F69C46AF-EF54-4A2F-9BD1-4ACF6B9D1F82}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PluralsightLicense.Test", "PluralsightLicenseTest\PluralsightLicense.Test.csproj", "{F69C46AF-EF54-4A2F-9BD1-4ACF6B9D1F82}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluralsightLicense.Repo", "PluralsightLicense.Repo\PluralsightLicense.Repo.csproj", "{1FFC7DC5-1771-4A2F-8109-5FAAA5224585}"
 EndProject

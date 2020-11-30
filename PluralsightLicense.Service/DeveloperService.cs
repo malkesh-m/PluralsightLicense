@@ -14,6 +14,7 @@ namespace PluralsightLicense.Service
         bool CreateDeveloper(Developer developer);
         List<Developer> GetDevelopers(int teamId);
         bool DeleteDeveloper(int developerId);
+        List<Developer> UnlicensedDevelopers();
     }
     public class DeveloperService : IDeveloperService
     {
@@ -38,7 +39,7 @@ namespace PluralsightLicense.Service
         /// <returns>bool</returns>
         public List<Developer> GetDevelopers(int teamId)
         {
-                return developerRepo.GetAll(teamId);
+            return developerRepo.GetAll(teamId);
         }
 
         /// <summary>
@@ -59,6 +60,9 @@ namespace PluralsightLicense.Service
             return developerRepo.IsAvailable(developerId);
         }
 
-        
+        public List<Developer> UnlicensedDevelopers()
+        {
+            return developerRepo.GetAllUnlicensed();
+        }
     }
 }
