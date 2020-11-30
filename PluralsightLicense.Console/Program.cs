@@ -16,6 +16,7 @@ namespace PluralsightLicense.Consoles
             System.AppDomain.CurrentDomain.UnhandledException += UnhandledException;
             DeveloperService ds = new DeveloperService();
             TeamService ts = new TeamService();
+            DevTeamService dts = new DevTeamService();
 
             while (true)
             {
@@ -35,7 +36,7 @@ namespace PluralsightLicense.Consoles
                 if (input.Equals("1"))
                 {
                     Console.WriteLine();
-                    Console.Write("Enter Name of Team ");
+                    Console.Write("Enter name of team: ");
                     string teamName = Console.ReadLine();
                     if (!string.IsNullOrEmpty(teamName))
                     {
@@ -47,7 +48,7 @@ namespace PluralsightLicense.Consoles
                 else if (input.Equals("2"))
                 {
                 deleteTeamPluralLicenses:
-                    Console.Write("Enter team id to delete the team ");
+                    Console.Write("Enter team id to delete the team: ");
                     string deleteId = Console.ReadLine();
                     int deleteid;
                     if (!string.IsNullOrEmpty(deleteId) && Int32.TryParse(deleteId, out deleteid))
@@ -56,7 +57,7 @@ namespace PluralsightLicense.Consoles
                     }
                     else
                     {
-                        Console.WriteLine("Please enter appropriate input.");
+                        Console.WriteLine("Please enter valid input.");
                         goto deleteTeamPluralLicenses;
                     }
                     goto tostart;
@@ -75,20 +76,20 @@ namespace PluralsightLicense.Consoles
                     }
                     else
                     {
-                        Console.WriteLine("No Developers available in system");
+                        Console.WriteLine("No Developers available in system.");
                     }
                     goto tostart;
                 }
                 else if (input.Equals("4"))
                 {
                     Console.WriteLine();
-                    Console.Write("Enter Name of Developer ");
+                    Console.Write("Enter name of developer: ");
                     string developerName = Console.ReadLine();
                     if (!string.IsNullOrEmpty(developerName))
                     {
                         Developer developer = new Developer() { DeveloperName = developerName };
                     PluralLicenses:
-                        Console.Write("Assign Plural License Yes or No ? ");
+                        Console.Write("Assign pluralsight license (Yes or No)? ");
                         string isPlural = Console.ReadLine();
                         if (!string.IsNullOrEmpty(isPlural) && (isPlural.Trim().ToLower().Equals("y") || isPlural.Trim().ToLower().Equals("n") || isPlural.Trim().ToLower().Equals("yes") || isPlural.Trim().ToLower().Equals("no")))
                         {
@@ -103,7 +104,7 @@ namespace PluralsightLicense.Consoles
                         }
                         else
                         {
-                            Console.WriteLine("Please enter appropriate input.");
+                            Console.WriteLine("Please enter valid input.");
                             goto PluralLicenses;
                         }
                         ds.CreateDeveloper(developer);
@@ -113,7 +114,7 @@ namespace PluralsightLicense.Consoles
                 else if (input.Equals("5"))
                 {
                 deletePluralLicenses:
-                    Console.Write("Enter developer id to delete the developer ");
+                    Console.Write("Enter developer id: ");
                     string deleteId = Console.ReadLine();
                     int deleteid;
                     if (!string.IsNullOrEmpty(deleteId) && Int32.TryParse(deleteId, out deleteid))
@@ -122,7 +123,7 @@ namespace PluralsightLicense.Consoles
                     }
                     else
                     {
-                        Console.WriteLine("Please enter appropriate input.");
+                        Console.WriteLine("Please enter valid input.");
                         goto deletePluralLicenses;
                     }
                     goto tostart;
@@ -141,7 +142,7 @@ namespace PluralsightLicense.Consoles
                     }
                     else
                     {
-                        Console.WriteLine("No Developers available in system");
+                        Console.WriteLine("Developers not available in system.");
                     }
                     goto tostart;
                 }
@@ -149,14 +150,14 @@ namespace PluralsightLicense.Consoles
                 {
                 addTeam:
                     Console.WriteLine();
-                    Console.Write("Enter Id of Team ");
+                    Console.Write("Enter team id: ");
                     string teamId = Console.ReadLine();
                     int teamID;
                     if (!string.IsNullOrEmpty(teamId) && Int32.TryParse(teamId, out teamID) && ts.IsAvailable(teamID))
                     {
-                        TeamDeveloper teamDeveloperteam = new TeamDeveloper() { TeamId = teamID };
+                        DevTeam teamDeveloperteam = new DevTeam() { TeamId = teamID };
                     addDevlopers:
-                        Console.Write("Enter id/s of developers to assign in the team " + teamID + " ");
+                        Console.Write("Enter id's of developers to assign in the team id " + teamID + " (Separated by comma): ");
                         string developerids = Console.ReadLine();
                         if (!string.IsNullOrEmpty(developerids))
                         {
@@ -165,12 +166,12 @@ namespace PluralsightLicense.Consoles
                                 int id;
                                 if (!(int.TryParse(item, out id) && ds.IsAvailable(id)))
                                 {
-                                    Console.WriteLine("Please enter appropriate input.");
+                                    Console.WriteLine("Please enter valid input.");
                                     goto addDevlopers;
                                 }
                             }
                             teamDeveloperteam.DeveloperIds = developerids;
-                            ts.AssignDeveloperstoTeam(teamDeveloperteam);
+                            dts.AssignDeveloperstoTeam(teamDeveloperteam);
                         }
                         else
                         {
@@ -187,19 +188,19 @@ namespace PluralsightLicense.Consoles
                 }
                 else if (input.Equals("8"))
                 {
-                    var teamdevelopers = ts.GetTeamDevelopers();
+                    var teamdevelopers = dts.GetTeamDevelopers();
                     if (teamdevelopers.Count > 0)
                     {
                         Console.WriteLine("Team list");
-                        Console.WriteLine("Id\tTeam Name\t\t\tDeveloperName");
+                        Console.WriteLine("Id\tTeam Name\t\tDeveloperName");
                         foreach (var teamdeveloper in teamdevelopers)
                         {
-                            Console.WriteLine(teamdeveloper.Id + "\t" + teamdeveloper.TeamName + "\t\t\t" + teamdeveloper.DeveloperName);
+                            Console.WriteLine(teamdeveloper.Id + "\t" + teamdeveloper.TeamName + "\t\t" + teamdeveloper.DeveloperName);
                         }
                     }
                     else
                     {
-                        Console.WriteLine("No Developers assigned to any team");
+                        Console.WriteLine("No developer assigned to team.");
                     }
                 }
                 else

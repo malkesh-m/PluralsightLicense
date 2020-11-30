@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PluralsightLicense.Service"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VendingMachineTest", "PluralsightLicenseTest\VendingMachineTest.csproj", "{F69C46AF-EF54-4A2F-9BD1-4ACF6B9D1F82}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluralsightLicense.Repo", "PluralsightLicense.Repo\PluralsightLicense.Repo.csproj", "{1FFC7DC5-1771-4A2F-8109-5FAAA5224585}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{F69C46AF-EF54-4A2F-9BD1-4ACF6B9D1F82}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F69C46AF-EF54-4A2F-9BD1-4ACF6B9D1F82}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F69C46AF-EF54-4A2F-9BD1-4ACF6B9D1F82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FFC7DC5-1771-4A2F-8109-5FAAA5224585}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FFC7DC5-1771-4A2F-8109-5FAAA5224585}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FFC7DC5-1771-4A2F-8109-5FAAA5224585}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FFC7DC5-1771-4A2F-8109-5FAAA5224585}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

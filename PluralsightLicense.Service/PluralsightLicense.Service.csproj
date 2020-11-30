@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PluralsightLicense.Data\PluralsightLicense.Data.csproj" />
+    <ProjectReference Include="..\PluralsightLicense.Repo\PluralsightLicense.Repo.csproj" />
   </ItemGroup>
 
   <ItemGroup>
